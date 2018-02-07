@@ -32,13 +32,13 @@ public class MyShiroRealm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        User user= (User) SecurityUtils.getSubject().getPrincipal();//User{id=1, username='admin', password='3ef7164d1f6167cb9f2658c07d3c2f0a', enable=1}
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("userid",user.getId());
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userid", user.getId());
         List<Resources> resourcesList = resourcesService.loadUserResources(map);
         // 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        for(Resources resources: resourcesList){
+        for (Resources resources : resourcesList) {
             info.addStringPermission(resources.getResurl());
         }
         return info;
@@ -48,10 +48,12 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         //获取用户的输入的账号.
-        String username = (String)token.getPrincipal();
+        String username = (String) token.getPrincipal();
         User user = userService.selectByUsername(username);
-        if(user==null) throw new UnknownAccountException();
-        if (0==user.getEnable()) {
+        if (user == null) {
+            throw new UnknownAccountException();
+        }
+        if (0 == user.getEnable()) {
             throw new LockedAccountException();
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
@@ -80,14 +82,4 @@ public class MyShiroRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 
-    /**
-     * 指定principalCollection 清除
-     */
-  /*  public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
-
-        SimplePrincipalCollection principals = new SimplePrincipalCollection(
-                principalCollection, getName());
-        super.clearCachedAuthorizationInfo(principals);
-    }
-*/
 }

@@ -7,9 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-/**
- * Created by yangqj on 2017/4/26.
- */
+
 @Service("serRoleService")
 public class UserRoleServiceImpl extends BaseService<UserRole> implements UserRoleService {
 

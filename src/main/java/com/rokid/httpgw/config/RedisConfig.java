@@ -9,27 +9,25 @@ import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-/**
- * Created by yangqj on 2017/4/30.
- */
+
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Value("${spring.redis.host}")
-    private String host ;
+    private String host;
 
     @Value("${spring.redis.port}")
-    private int port ;
+    private int port;
 
     @Value("${spring.redis.timeout}")
     private int timeout;
 
     @Value("${spring.redis.pool.max-idle}")
-    private int maxIdle ;
+    private int maxIdle;
 
     @Value("${spring.redis.pool.max-wait}")
-    private long maxWaitMillis ;
+    private long maxWaitMillis;
 
     @Bean
     public JedisPool redisPoolFactory() {

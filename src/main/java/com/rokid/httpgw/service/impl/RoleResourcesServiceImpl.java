@@ -9,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
-/**
- * Created by yangqj on 2017/4/26.
- */
+
 @Service("roleResourcesService")
 public class RoleResourcesServiceImpl extends BaseService<RoleResources> implements RoleResourcesService {
    /* @Resource

@@ -72,7 +72,7 @@ public class LoginOutController {
     @RequestMapping(value = "/unauth")
     public Object unauth() {
         Map<String, Object> map = new HashMap<>();
-        map.put("code", "1000000");
+        map.put("code", "100000");
         map.put("msg", "未登录");
         return map;
     }

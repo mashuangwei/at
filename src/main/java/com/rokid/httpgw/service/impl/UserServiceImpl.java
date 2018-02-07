@@ -15,9 +15,7 @@ import tk.mybatis.mapper.util.StringUtil;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * Created by yangqj on 2017/4/21.
- */
+
 @Service("userService")
 public class UserServiceImpl extends BaseService<User> implements UserService {
     @Resource
@@ -25,7 +23,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     public PageInfo<User> selectByPage(User user, int start, int length) {
-        int page = start/length+1;
+        int page = start / length + 1;
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
         if (StringUtil.isNotEmpty(user.getUsername())) {
@@ -47,23 +45,23 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public User selectByUsername(String username) {
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("username",username);
+        criteria.andEqualTo("username", username);
         List<User> userList = selectByExample(example);
-        if(userList.size()>0){
+        if (userList.size() > 0) {
             return userList.get(0);
         }
-            return null;
+        return null;
     }
 
     @Override
-    @Transactional(propagation= Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = {Exception.class})
     public void delUser(Integer userid) {
         //删除用户表
         mapper.deleteByPrimaryKey(userid);
         //删除用户角色表
         Example example = new Example(UserRole.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userid",userid);
+        criteria.andEqualTo("userid", userid);
         userRoleMapper.deleteByExample(example);
     }
 }

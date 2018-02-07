@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yangqj on 2017/4/23.
+ * @author mashuangwei
  */
 @Configuration
 public class ShiroConfig {
@@ -52,17 +52,16 @@ public class ShiroConfig {
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
      * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，因为在
      * 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
-     *
-     Filter Chain定义说明
-     1、一个URL可以配置多个Filter，使用逗号分隔
-     2、当设置多个过滤器时，全部验证通过，才视为通过
-     3、部分过滤器可指定参数，如perms，roles
-     *
+     * <p>
+     * Filter Chain定义说明
+     * 1、一个URL可以配置多个Filter，使用逗号分隔
+     * 2、当设置多个过滤器时，全部验证通过，才视为通过
+     * 3、部分过滤器可指定参数，如perms，roles
      */
     @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager){
+    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         System.out.println("ShiroConfiguration.shirFilter()");
-        ShiroFilterFactoryBean shiroFilterFactoryBean  = new ShiroFilterFactoryBean();
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -73,7 +72,7 @@ public class ShiroConfig {
         //未授权界面;
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         //拦截器.
-        Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "anon");
@@ -89,11 +88,11 @@ public class ShiroConfig {
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         //自定义加载权限资源关系
         List<Resources> resourcesList = resourcesService.queryAll();
-         for(Resources resources:resourcesList){
+        for (Resources resources : resourcesList) {
 
             if (StringUtil.isNotEmpty(resources.getResurl())) {
-                String permission = "perms[" + resources.getResurl()+ "]";
-                filterChainDefinitionMap.put(resources.getResurl(),permission);
+                String permission = "perms[" + resources.getResurl() + "]";
+                filterChainDefinitionMap.put(resources.getResurl(), permission);
             }
         }
         filterChainDefinitionMap.put("/**", "authc");
@@ -102,21 +101,19 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-
     @Bean
-    public SecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+    public SecurityManager securityManager() {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //设置realm.
         securityManager.setRealm(myShiroRealm());
-        // 自定义缓存实现 使用redis
-        //securityManager.setCacheManager(cacheManager());
+
         // 自定义session管理 使用redis
         securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
     @Bean
-    public MyShiroRealm myShiroRealm(){
+    public MyShiroRealm myShiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
         myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return myShiroRealm;
@@ -125,12 +122,13 @@ public class ShiroConfig {
     /**
      * 凭证匹配器
      * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
-     *  所以我们需要修改下doGetAuthenticationInfo中的代码;
+     * 所以我们需要修改下doGetAuthenticationInfo中的代码;
      * ）
+     *
      * @return
      */
     @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
 
         hashedCredentialsMatcher.setHashAlgorithmName("md5");
@@ -139,15 +137,15 @@ public class ShiroConfig {
         return hashedCredentialsMatcher;
     }
 
-
     /**
-     *  开启shiro aop注解支持.
-     *  使用代理方式;所以需要开启代码支持;
+     * 开启shiro aop注解支持.
+     * 使用代理方式;所以需要开启代码支持;
+     *
      * @param securityManager
      * @return
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
@@ -156,6 +154,7 @@ public class ShiroConfig {
     /**
      * 配置shiro redisManager
      * 使用的是shiro-redis开源插件
+     *
      * @return
      */
     public RedisManager redisManager() {
@@ -171,6 +170,7 @@ public class ShiroConfig {
     /**
      * cacheManager 缓存 redis实现
      * 使用的是shiro-redis开源插件
+     *
      * @return
      */
     public RedisCacheManager cacheManager() {
@@ -178,7 +178,6 @@ public class ShiroConfig {
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
     }
-
 
     /**
      * RedisSessionDAO shiro sessionDao层的实现 通过redis
