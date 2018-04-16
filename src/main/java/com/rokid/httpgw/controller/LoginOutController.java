@@ -2,6 +2,7 @@ package com.rokid.httpgw.controller;
 
 import com.rokid.httpgw.model.User;
 import com.rokid.httpgw.service.UserService;
+import com.rokid.httpgw.util.PasswordHelper;
 import net.sf.json.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -72,38 +73,55 @@ public class LoginOutController {
     @RequestMapping(value = "/unauth")
     public Object unauth() {
         Map<String, Object> map = new HashMap<>();
-        map.put("code", "100000");
+        map.put("code", "403");
         map.put("msg", "未登录");
         return map;
     }
 
     @GetMapping("/getall")
-    public Map getall(HttpServletResponse response, HttpServletRequest request) {
-        System.err.println(request.getHeader("Origin"));
-        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-        response.setHeader("Access-Control-Allow-Credentials", "true");
+    public Map getall() {
+//        System.err.println(request.getHeader("Origin"));
+//        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+//        response.setHeader("Access-Control-Allow-Credentials", "true");
         Map<String, Object> map = new HashMap<>();
         map.put("msg","test");
         return map;
     }
 
-//    @PostMapping("/add")
-//    public String add(@RequestBody User user) {
-//        User u = userService.selectByUsername(user.getUsername());
-//        if(u != null) {
-//            return "error";
-//        }
-//        try {
-//            user.setEnable(1);
-//            PasswordHelper passwordHelper = new PasswordHelper();
-//            passwordHelper.encryptPassword(user);
-//            userService.addUser(user);
-//            return "success";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return "fail";
-//        }
-//    }
+    @PostMapping("/add")
+    public String add(@RequestBody User user) {
+        User u = userService.selectByUsername(user.getUsername());
+        if(u != null) {
+            return "error";
+        }
+        try {
+            user.setEnable(1);
+            PasswordHelper passwordHelper = new PasswordHelper();
+            passwordHelper.encryptPassword(user);
+            userService.addUser(user);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    @PutMapping("/update")
+    public String update(@RequestBody User user) {
+        User u = userService.selectByUsername(user.getUsername());
+        if(u != null) {
+            return "error";
+        }
+        try {
+            PasswordHelper passwordHelper = new PasswordHelper();
+            passwordHelper.encryptPassword(user);
+            userService.updateUser(user);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
 
 
 

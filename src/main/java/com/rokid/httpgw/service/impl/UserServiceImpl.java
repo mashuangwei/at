@@ -64,4 +64,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         criteria.andEqualTo("userid", userid);
         userRoleMapper.deleteByExample(example);
     }
+
+    @Override
+    public int addUser(User user) {
+        return mapper.insert(user);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return mapper.updateByPrimaryKeySelective(user);
+    }
+
+
 }

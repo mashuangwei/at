@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rokid.httpgw.mapper.ResourcesMapper">
-  <resultMap id="BaseResultMap" type="com.rokid.httpgw.model.Resources">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="resUrl" jdbcType="VARCHAR" property="resurl" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="parentId" jdbcType="INTEGER" property="parentid" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.rokid.httpgw.model.Resources">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="resUrl" jdbcType="VARCHAR" property="resurl"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="parentId" jdbcType="INTEGER" property="parentid"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+    </resultMap>
 
-  <select id="queryAll" resultType="com.rokid.httpgw.model.Resources">
-      	SELECT id,name,parentId,resUrl,type,sort
+    <select id="queryAll" resultType="com.rokid.httpgw.model.Resources">
+      	SELECT id,`name`,parentId,resUrl,`type`,sort
 		FROM resources
 		ORDER BY sort ASC
-  </select>
+    </select>
 
     <select id="loadUserResources" parameterType="java.util.HashMap" resultType="com.rokid.httpgw.model.Resources">
         SELECT re.id,re.name,re.parentId,re.resUrl
