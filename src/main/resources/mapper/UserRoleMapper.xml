@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rokid.httpgw.mapper.UserRoleMapper">
-    <resultMap id="BaseResultMap" type="com.rokid.httpgw.model.UserRole">
+<mapper namespace="com.easy.ai.mapper.UserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.easy.ai.model.UserRole">
         <result column="userId" jdbcType="INTEGER" property="userid"/>
         <result column="roleId" jdbcType="INTEGER" property="roleid"/>
     </resultMap>

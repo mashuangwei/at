@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rokid.httpgw.mapper.ResourcesMapper">
-    <resultMap id="BaseResultMap" type="com.rokid.httpgw.model.Resources">
+<mapper namespace="com.easy.ai.mapper.ResourcesMapper">
+    <resultMap id="BaseResultMap" type="com.easy.ai.model.Resources">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="resUrl" jdbcType="VARCHAR" property="resurl"/>
@@ -10,13 +10,13 @@
         <result column="sort" jdbcType="INTEGER" property="sort"/>
     </resultMap>
 
-    <select id="queryAll" resultType="com.rokid.httpgw.model.Resources">
+    <select id="queryAll" resultType="com.easy.ai.model.Resources">
       	SELECT id,`name`,parentId,resUrl,`type`,sort
 		FROM resources
 		ORDER BY sort ASC
     </select>
 
-    <select id="loadUserResources" parameterType="java.util.HashMap" resultType="com.rokid.httpgw.model.Resources">
+    <select id="loadUserResources" parameterType="java.util.HashMap" resultType="com.easy.ai.model.Resources">
         SELECT re.id,re.name,re.parentId,re.resUrl
         FROM resources re LEFT JOIN role_resources rr
         ON re.id = rr.resourcesId
@@ -30,7 +30,7 @@
         ORDER BY re.sort ASC
     </select>
 
-    <select id="queryResourcesListWithSelected" parameterType="int" resultType="com.rokid.httpgw.model.Resources">
+    <select id="queryResourcesListWithSelected" parameterType="int" resultType="com.easy.ai.model.Resources">
         SELECT re.id,re.name,re.parentId,re.resUrl,re.type,
 		(CASE WHEN EXISTS(SELECT 1
 		FROM role_resources rr WHERE rr.resourcesId=re.id AND rr.roleId=#{rid})
