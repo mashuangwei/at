@@ -35,5 +35,4 @@ CREATE TABLE `tb_project`  (
 -- ----------------------------
 INSERT INTO `tb_project` VALUES (1, 'DLP', 'DLP1.0', 'msw', '2018-06-06 13:53:02');
 INSERT INTO `tb_project` VALUES (2, 'oula', 'oula哈哈', 'xiaoli', '2018-06-06 15:22:09');
-
 SET FOREIGN_KEY_CHECKS = 1;
