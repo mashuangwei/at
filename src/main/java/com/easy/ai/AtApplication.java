@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("com.easy.ai.mapper")
 public class AtApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AtApplication.class, args);
 	}
 }
-
