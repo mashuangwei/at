@@ -89,7 +89,6 @@ public class ShiroConfig {
         //自定义加载权限资源关系
         List<Resources> resourcesList = resourcesService.queryAll();
         for (Resources resources : resourcesList) {
-
             if (StringUtil.isNotEmpty(resources.getResurl())) {
                 String permission = "perms[" + resources.getResurl() + "]";
                 filterChainDefinitionMap.put(resources.getResurl(), permission);
@@ -198,7 +197,6 @@ public class ShiroConfig {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO());
         Cookie cookie = new SimpleCookie(ShiroHttpSession.DEFAULT_SESSION_ID_NAME);
-        cookie.setName("MSW_SESSION");
         sessionManager.setSessionIdCookie(cookie);
         return sessionManager;
     }
