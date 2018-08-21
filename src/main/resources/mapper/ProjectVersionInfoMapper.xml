@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easy.ai.mapper.ProjectVersionInfoMapper">
+  <resultMap id="BaseResultMap" type="com.easy.ai.model.ProjectVersionInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="bug_num" jdbcType="INTEGER" property="bugNum" />
+    <result column="not_slove" jdbcType="INTEGER" property="notSlove" />
+    <result column="highst" jdbcType="INTEGER" property="highst" />
+    <result column="high" jdbcType="INTEGER" property="high" />
+    <result column="medium" jdbcType="INTEGER" property="medium" />
+    <result column="lower" jdbcType="INTEGER" property="lower" />
+    <result column="optimize" jdbcType="INTEGER" property="optimize" />
+    <result column="case_num" jdbcType="INTEGER" property="caseNum" />
+    <result column="executed_num" jdbcType="INTEGER" property="executedNum" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_id, bug_num, not_slove, highst, high, medium, `lower`, `optimize`, case_num, 
+    executed_num, version, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_project_version_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_project_version_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easy.ai.model.ProjectVersionInfo">
+    insert into tb_project_version_info (id, project_id, bug_num, 
+      not_slove, highst, high, 
+      medium, `lower`, `optimize`, 
+      case_num, executed_num, version, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{bugNum,jdbcType=INTEGER}, 
+      #{notSlove,jdbcType=INTEGER}, #{highst,jdbcType=INTEGER}, #{high,jdbcType=INTEGER}, 
+      #{medium,jdbcType=INTEGER}, #{lower,jdbcType=INTEGER}, #{optimize,jdbcType=INTEGER}, 
+      #{caseNum,jdbcType=INTEGER}, #{executedNum,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.easy.ai.model.ProjectVersionInfo">
+    insert into tb_project_version_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="bugNum != null">
+        bug_num,
+      </if>
+      <if test="notSlove != null">
+        not_slove,
+      </if>
+      <if test="highst != null">
+        highst,
+      </if>
+      <if test="high != null">
+        high,
+      </if>
+      <if test="medium != null">
+        medium,
+      </if>
+      <if test="lower != null">
+        `lower`,
+      </if>
+      <if test="optimize != null">
+        `optimize`,
+      </if>
+      <if test="caseNum != null">
+        case_num,
+      </if>
+      <if test="executedNum != null">
+        executed_num,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="bugNum != null">
+        #{bugNum,jdbcType=INTEGER},
+      </if>
+      <if test="notSlove != null">
+        #{notSlove,jdbcType=INTEGER},
+      </if>
+      <if test="highst != null">
+        #{highst,jdbcType=INTEGER},
+      </if>
+      <if test="high != null">
+        #{high,jdbcType=INTEGER},
+      </if>
+      <if test="medium != null">
+        #{medium,jdbcType=INTEGER},
+      </if>
+      <if test="lower != null">
+        #{lower,jdbcType=INTEGER},
+      </if>
+      <if test="optimize != null">
+        #{optimize,jdbcType=INTEGER},
+      </if>
+      <if test="caseNum != null">
+        #{caseNum,jdbcType=INTEGER},
+      </if>
+      <if test="executedNum != null">
+        #{executedNum,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.easy.ai.model.ProjectVersionInfo">
+    update tb_project_version_info
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="bugNum != null">
+        bug_num = #{bugNum,jdbcType=INTEGER},
+      </if>
+      <if test="notSlove != null">
+        not_slove = #{notSlove,jdbcType=INTEGER},
+      </if>
+      <if test="highst != null">
+        highst = #{highst,jdbcType=INTEGER},
+      </if>
+      <if test="high != null">
+        high = #{high,jdbcType=INTEGER},
+      </if>
+      <if test="medium != null">
+        medium = #{medium,jdbcType=INTEGER},
+      </if>
+      <if test="lower != null">
+        `lower` = #{lower,jdbcType=INTEGER},
+      </if>
+      <if test="optimize != null">
+        `optimize` = #{optimize,jdbcType=INTEGER},
+      </if>
+      <if test="caseNum != null">
+        case_num = #{caseNum,jdbcType=INTEGER},
+      </if>
+      <if test="executedNum != null">
+        executed_num = #{executedNum,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.easy.ai.model.ProjectVersionInfo">
+    update tb_project_version_info
+    set project_id = #{projectId,jdbcType=INTEGER},
+      bug_num = #{bugNum,jdbcType=INTEGER},
+      not_slove = #{notSlove,jdbcType=INTEGER},
+      highst = #{highst,jdbcType=INTEGER},
+      high = #{high,jdbcType=INTEGER},
+      medium = #{medium,jdbcType=INTEGER},
+      `lower` = #{lower,jdbcType=INTEGER},
+      `optimize` = #{optimize,jdbcType=INTEGER},
+      case_num = #{caseNum,jdbcType=INTEGER},
+      executed_num = #{executedNum,jdbcType=INTEGER},
+      version = #{version,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
