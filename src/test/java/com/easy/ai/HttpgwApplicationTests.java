@@ -1,4 +1,4 @@
-package com.rokid.httpgw;
+package com.easy.ai;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
